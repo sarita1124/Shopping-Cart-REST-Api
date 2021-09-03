@@ -12,10 +12,6 @@ try:
     
     DB_URI=os.getenv('DB_URI')
     client = pymongo.MongoClient(DB_URI,ssl_cert_reqs=ssl.CERT_NONE)
-    
-
-    #string_connection="mongodb+srv://testuser:testpass24@cluster0.uwvsw.mongodb.net/Shoppingdb?retryWrites=true&w=majority"
-    #mongo=pymongo.MongoClient(string_connection)
     print(client.list_database_names())
     #mongo.server_info() 
     db=client.Shoppingdb
