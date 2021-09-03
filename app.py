@@ -2,22 +2,26 @@ from flask import Flask, Response, request
 import json
 from bson.objectid import ObjectId
 import pymongo
-
+import os
+import ssl
 app=Flask(__name__)
 
 
 # connecting with mongoDB database
 try:
-    mongo=pymongo.MongoClient(
-        host="localhost",
-        port=27017,
-        serverSelectionTimeoutMS =1000
+    
+    DB_URI=os.getenv('DB_URI')
+    client = pymongo.MongoClient(DB_URI,ssl_cert_reqs=ssl.CERT_NONE)
+    
 
-    )
-    mongo.server_info() 
-    db=mongo.miskaa
-except:
+    #string_connection="mongodb+srv://testuser:testpass24@cluster0.uwvsw.mongodb.net/Shoppingdb?retryWrites=true&w=majority"
+    #mongo=pymongo.MongoClient(string_connection)
+    print(client.list_database_names())
+    #mongo.server_info() 
+    db=client.Shoppingdb
+except Exception as ex:
     print("Error - Cannot connect to database")
+    print(ex)
 
 
 @app.route("/",methods=["GET"])
